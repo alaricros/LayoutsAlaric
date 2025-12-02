@@ -15,44 +15,36 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cat.dam.andy.app.ui.theme.AppTheme
 
-// Color verd fosc que coincideix amb la teva imatge de referència
-private val DarkGreen = Color(0xFF006400) // Un DarkGreen
+private val DarkGreen = Color(0xFF006400) 
 
-// Dimensions
 private val FRAME_HEIGHT = 40.dp
-private val STEP_WIDTH = 15.dp // Amplada de cada esglaó (Spacer)
+private val STEP_WIDTH = 15.dp 
 private val TEXT_SIZE = 25.sp
 
-// Funció que crea una FILA amb un Spacer per simular l'escala/decalatge
 @Composable
 fun SteppedFrame(
     text: String,
     backgroundColor: Color,
     textColor: Color,
-    stepCount: Int, // Indica quants passos d'amplada de Spacer necessitem
+    stepCount: Int, 
     modifier: Modifier = Modifier
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
             .height(FRAME_HEIGHT)
-            // Apliquem el color de fons només a la part de contingut, no al Spacer.
-            // Però, com que el Frame ha de fer l'efecte L, posem el color de fons a la Fila
-            // i usem el Spacer per empènyer el contingut.
-            .background(backgroundColor), // El color cobreix tota la fila
+            .background(backgroundColor), 
         verticalAlignment = Alignment.CenterVertically
     ) {
-        // 1. Spacer per crear el decalatge (l'amplada que es menja l'espai)
         Spacer(
             modifier = Modifier
                 .width(STEP_WIDTH * stepCount)
                 .fillMaxHeight()
         )
 
-        // 2. Text Content (utilitza el pes restant)
         Box(
             modifier = Modifier
-                .weight(1f) // Ocupa l'espai restant de la fila
+                .weight(1f)
                 .fillMaxHeight(),
             contentAlignment = Alignment.CenterStart
         ) {
@@ -74,11 +66,9 @@ fun Layout2Screen() {
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
-            .padding(top = 10.dp) // Padding superior per allunyar-ho de la barra de navegació
+            .padding(top = 10.dp) 
     ) {
-        // --- Frames superposats amb efecte "L" ---
 
-        // Frame 1 (Black, Text White) - Sense desplaçament
         SteppedFrame(
             text = "frame1",
             backgroundColor = Color.Black,
@@ -86,7 +76,6 @@ fun Layout2Screen() {
             stepCount = 0
         )
 
-        // Frame 2 (Yellow, Text Black) - 1 pas
         SteppedFrame(
             text = "frame2",
             backgroundColor = Color.Yellow,
@@ -94,7 +83,6 @@ fun Layout2Screen() {
             stepCount = 1
         )
 
-        // Frame 3 (White, Text Black) - 2 passos
         SteppedFrame(
             text = "frame3",
             backgroundColor = Color.White,
@@ -102,28 +90,23 @@ fun Layout2Screen() {
             stepCount = 2
         )
 
-        // --- Frame 4 (Dark Green, Text White) ---
-        // Aquest bloc ocupa la resta de l'espai. Ha de ser tractat com un Box gran
-        // que té un Spacer al principi per empènyer el contingut i el fons.
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(1f) // Ocupa l'espai vertical restant
-                .background(DarkGreen) // El fons verd cobreix tota l'amplada disponible.
+                .weight(1f) 
+                .background(DarkGreen) 
         ) {
-            // Spacer per crear el decalatge del fons i el text (3 passos)
             Spacer(
                 modifier = Modifier
                     .width(STEP_WIDTH * 3)
                     .fillMaxHeight()
             )
 
-            // Contingut del Frame 4
             Box(
                 modifier = Modifier
-                    .weight(1f) // Ocupa la resta de l'espai a la dreta del Spacer
+                    .weight(1f) 
                     .fillMaxHeight()
-                    .padding(top = 8.dp), // Afegim padding superior només al Box de text
+                    .padding(top = 8.dp),
                 contentAlignment = Alignment.TopStart
             ) {
                 Text(
